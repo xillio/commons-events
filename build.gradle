@@ -1,0 +1,53 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+
+
+//Variables
+def versionNumber = "1.0"
+def mavenUsername = 'upload'
+def mavenPassword = 'upload'
+//END Variables
+
+version = versionNumber
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenLocal()
+  mavenCentral()
+}
+
+dependencies {
+}
+
+task sourceJar(type: Jar) {
+	from sourceSets.main.allJava
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId 'nl.xillio'
+            artifactId 'commons-events'
+            version = version
+
+            from components.java
+						
+						artifact sourceJar {
+							classifier "sources"
+						}
+        }
+    }
+    
+     repositories {
+	        maven {
+	            url 'http://192.168.0.200:8081/nexus/content/repositories/releases'
+	            
+	            credentials {
+	            	username = mavenUsername
+	            	password = mavenPassword
+	            }
+	        }
+	    }
+}

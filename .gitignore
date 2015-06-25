@@ -1,0 +1,14 @@
+bin/
+dist/
+test-output/
+/target/
+
+# Gradle
+build/
+.gradle/
+
+# Eclipse
+.settings/
+.metadata/
+.classpath
+.project
